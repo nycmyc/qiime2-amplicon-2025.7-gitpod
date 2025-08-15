@@ -1,0 +1,67 @@
+# QIIME2 artifacts and visualizations
+*.qza
+*.qzv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+*.egg-info/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# Data files
+*.fastq
+*.fastq.gz
+*.fasta
+*.fna
+*.faa
+*.biom
+*.txt
+!manifest.txt
+!metadata.txt
+
+# Large data directories
+data/
+raw_data/
+results/
+output/
+
+# R
+.Rhistory
+.Rdata
+.Rproj.user
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.log
+
+# Compressed files (often data)
+*.zip
+*.tar
+*.tar.gz
+*.gz
+!*.fastq.gz

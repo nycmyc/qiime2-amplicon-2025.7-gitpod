@@ -1,0 +1,61 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Initialize QIIME2
+    init: |
+      echo "🧬 Initializing QIIME2 environment..."
+      conda activate qiime2-amplicon-2025.7
+      echo "✅ QIIME2 environment activated!"
+    command: |
+      conda activate qiime2-amplicon-2025.7
+      echo "🎉 QIIME2 is ready to use!"
+      echo ""
+      echo "Testing QIIME2 installation..."
+      qiime info
+      echo ""
+      echo "📚 Quick Start Commands:"
+      echo "  - qiime --help           : Show QIIME2 help"
+      echo "  - qiime info             : Show QIIME2 system info"
+      echo "  - qiime tools import     : Import data into QIIME2"
+      echo "  - qiime demux summarize  : Summarize demultiplexed sequences"
+      echo ""
+      echo "📁 Sample data directory: /workspace/qiime2-amplicon-2025.7-gitpod/sample-data"
+      echo ""
+      echo "Ready for analysis! 🚀"
+
+  - name: JupyterLab Server
+    init: |
+      pip install jupyter-server-proxy
+    command: |
+      conda activate qiime2-amplicon-2025.7
+      jupyter lab --NotebookApp.allow_origin='*' --NotebookApp.token='' --NotebookApp.password=''
+    openMode: split-right
+
+ports:
+  - port: 8888
+    description: JupyterLab
+    onOpen: open-preview
+  - port: 8080
+    description: QIIME2 Visualizations
+    onOpen: notify
+
+vscode:
+  extensions:
+    - ms-python.python
+    - ms-python.vscode-pylance
+    - ms-toolsai.jupyter
+    - ms-toolsai.jupyter-keymap
+    - ms-toolsai.jupyter-renderers
+    - redhat.vscode-yaml
+    - donjayamanne.githistory
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: false
+    addBadge: true
