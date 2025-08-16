@@ -36,8 +36,6 @@ tasks:
       fi
       source $HOME/.bashrc
       conda activate qiime2-amplicon-2025.7
-      # Install JupyterLab
-      conda install -n base -c conda-forge jupyterlab -y
       # Refresh QIIME 2 cache
       qiime dev refresh-cache
       # Auto-activate conda environment
@@ -48,32 +46,32 @@ tasks:
       export CONDA_DIR="/workspace/miniconda3"
       source $HOME/.bashrc
       conda activate qiime2-amplicon-2025.7
-      echo "QIIME 2 2025.7 setup complete. Verifying installation..."
-      conda info
+      clear
+      echo "============================================"
+      echo "   QIIME 2 2025.7 Environment Ready! 🧬"
+      echo "============================================"
+      echo ""
       qiime --version
       echo ""
-      echo "✅ Setup complete! QIIME 2 2025.7 is ready to use."
+      echo "📚 Quick Commands:"
+      echo "  qiime --help              # Show all available plugins"
+      echo "  qiime info                # Show system information"
+      echo "  qiime tools import        # Import data into QIIME 2"
+      echo "  qiime tools export        # Export data from QIIME 2"
+      echo "  qiime tools view          # View QIIME 2 visualizations"
       echo ""
-      echo "📚 Quick Start Commands:"
-      echo "  - qiime --help"
-      echo "  - qiime info"
+      echo "📖 Tutorials:"
+      echo "  Moving Pictures: https://docs.qiime2.org/2025.7/tutorials/moving-pictures/"
+      echo "  Atacama Soils:   https://docs.qiime2.org/2025.7/tutorials/atacama-soils/"
       echo ""
-
-  - name: JupyterLab
-    command: |
-      export CONDA_DIR="/workspace/miniconda3"
-      source $HOME/.bashrc
-      conda activate qiime2-amplicon-2025.7
-      jupyter lab --NotebookApp.allow_origin='*' --NotebookApp.token='' --NotebookApp.password=''
-    openMode: split-right
+      echo "✅ Ready for analysis!"
 
 ports:
-  - port: 8888
-    description: JupyterLab
-    onOpen: open-preview
+  - port: 8080
+    description: QIIME2 Visualizations
+    onOpen: notify
 
 vscode:
   extensions:
     - ms-python.python
     - ms-python.debugpy
-    - ms-toolsai.jupyter
