@@ -2,32 +2,67 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - name: Initialize QIIME2
+  - name: Setup QIIME2 Amplicon 2025.7
     init: |
-      echo "🧬 Initializing QIIME2 environment..."
+      CONDA_DIR="/workspace/miniconda3"
+      if [ ! -d "$CONDA_DIR" ]; then
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+        bash Miniconda3-latest-Linux-x86_64.sh -b -p $CONDA_DIR
+        rm Miniconda3-latest-Linux-x86_64.sh
+      fi
+      echo 'export PATH="$CONDA_DIR/bin:$PATH"' >> $HOME/.bashrc
+      echo 'export CONDA_DIR="/workspace/miniconda3"' >> $HOME/.bashrc
+      echo '. $CONDA_DIR/etc/profile.d/conda.sh' >> $HOME/.bashrc
+      source $HOME/.bashrc
+      conda init bash
+      if [ ! -d "$CONDA_DIR/envs/qiime2-amplicon-2025.7" ]; then
+        conda update -n base -c defaults conda
+        max_retries=3
+        retry_count=0
+        while [ $retry_count -lt $max_retries ]; do
+          if conda env create -n qiime2-amplicon-2025.7 --file https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2025.7/amplicon/released/qiime2-amplicon-ubuntu-latest-conda.yml; then
+            echo "QIIME 2 2025.7 environment created successfully"
+            break
+          else
+            echo "Failed to create QIIME 2 environment. Retrying in 10 seconds..."
+            sleep 10
+            ((retry_count++))
+          fi
+        done
+        if [ $retry_count -eq $max_retries ]; then
+          echo "Failed to create QIIME 2 environment after $max_retries attempts"
+          exit 1
+        fi
+      fi
+      source $HOME/.bashrc
       conda activate qiime2-amplicon-2025.7
-      echo "✅ QIIME2 environment activated!"
+      # Install JupyterLab
+      conda install -n base -c conda-forge jupyterlab -y
+      # Refresh QIIME 2 cache
+      qiime dev refresh-cache
+      # Auto-activate conda environment
+      echo "" >> $HOME/.bashrc
+      echo "# Auto-activate QIIME 2 environment" >> $HOME/.bashrc
+      echo "conda activate qiime2-amplicon-2025.7" >> $HOME/.bashrc
     command: |
+      export CONDA_DIR="/workspace/miniconda3"
+      source $HOME/.bashrc
       conda activate qiime2-amplicon-2025.7
-      echo "🎉 QIIME2 is ready to use!"
+      echo "QIIME 2 2025.7 setup complete. Verifying installation..."
+      conda info
+      qiime --version
       echo ""
-      echo "Testing QIIME2 installation..."
-      qiime info
+      echo "✅ Setup complete! QIIME 2 2025.7 is ready to use."
       echo ""
       echo "📚 Quick Start Commands:"
-      echo "  - qiime --help           : Show QIIME2 help"
-      echo "  - qiime info             : Show QIIME2 system info"
-      echo "  - qiime tools import     : Import data into QIIME2"
-      echo "  - qiime demux summarize  : Summarize demultiplexed sequences"
+      echo "  - qiime --help"
+      echo "  - qiime info"
       echo ""
-      echo "📁 Sample data directory: /workspace/qiime2-amplicon-2025.7-gitpod/sample-data"
-      echo ""
-      echo "Ready for analysis! 🚀"
 
-  - name: JupyterLab Server
-    init: |
-      pip install jupyter-server-proxy
+  - name: JupyterLab
     command: |
+      export CONDA_DIR="/workspace/miniconda3"
+      source $HOME/.bashrc
       conda activate qiime2-amplicon-2025.7
       jupyter lab --NotebookApp.allow_origin='*' --NotebookApp.token='' --NotebookApp.password=''
     openMode: split-right
@@ -36,26 +71,9 @@ ports:
   - port: 8888
     description: JupyterLab
     onOpen: open-preview
-  - port: 8080
-    description: QIIME2 Visualizations
-    onOpen: notify
 
 vscode:
   extensions:
     - ms-python.python
-    - ms-python.vscode-pylance
+    - ms-python.debugpy
     - ms-toolsai.jupyter
-    - ms-toolsai.jupyter-keymap
-    - ms-toolsai.jupyter-renderers
-    - redhat.vscode-yaml
-    - donjayamanne.githistory
-
-github:
-  prebuilds:
-    master: true
-    branches: true
-    pullRequests: true
-    pullRequestsFromForks: true
-    addCheck: true
-    addComment: false
-    addBadge: true
