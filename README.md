@@ -1,222 +1,273 @@
-# QIIME2 Amplicon 2025.7 on Gitpod 🧬
+# QIIME2 Amplicon 2025.10 on Google Colab 🔬
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nycmyc/qiime2-amplicon-2025.7-gitpod/blob/colab-migration/QIIME2_Setup.ipynb)
 
-A ready-to-use QIIME2 Amplicon Distribution (2025.7) command-line environment on Gitpod for microbiome analysis.
+Run QIIME2 Amplicon 2025.10 in Google Colab - free cloud computing with up to 12GB RAM!
 
 ## 🚀 Quick Start
 
-1. Click the "Open in Gitpod" button above
-2. Choose your workspace size:
-   - **Standard** (4 cores, 8GB RAM) - Good for tutorials and small datasets
-   - **Large** (8 cores, 16GB RAM) - Better for real analyses and larger datasets
-3. Wait for the environment to set up (~10 minutes on first run, faster on subsequent runs)
-4. QIIME2 2025.7 will be automatically activated and ready to use!
+1. Click the "Open in Colab" badge above
+2. Run the setup cell (takes 15-20 minutes)
+3. Start analyzing microbiome data!
 
 ## 📦 What's Included
 
-- **QIIME2 Amplicon Distribution 2025.7** (latest version) with all core plugins:
-  - q2-dada2: Denoising with DADA2
-  - q2-deblur: Denoising with Deblur  
-  - q2-cutadapt: Primer trimming
-  - q2-feature-classifier: Taxonomic classification
-  - q2-diversity: Diversity analyses
-  - q2-emperor: PCoA plots
-  - q2-phylogeny: Phylogenetic analyses
-  - q2-feature-table: Feature table operations
-  - q2-metadata: Metadata operations
-  - q2-taxa: Taxonomic analysis
-  - q2-vsearch: VSEARCH integration
-  - q2-alignment: Sequence alignment
-  - q2-composition: Compositional data analysis
-  - q2-fragment-insertion: Fragment insertion
-  - q2-longitudinal: Longitudinal analysis
-  - q2-quality-control: Quality control
-  - q2-quality-filter: Quality filtering
-  - q2-sample-classifier: Machine learning classification
-  - q2-stats: Statistical testing
-  - q2-types: QIIME 2 type system
-  - q2-vizard: Visualization tools
+- **QIIME2 Amplicon 2025.10** with all core plugins
+- **Python utilities** for Colab integration
+- **Setup notebook** with automatic installation
+- **Example workflows** for common analyses
 
-- **Miniconda3** package manager
-- **Python** environment with scientific libraries
-- **Pre-configured VS Code** with Python extensions
+## ✅ Colab Advantages
 
-## ✅ Features
+- **Free GPU**: T4 GPU available
+- **12GB RAM**: More than Binder
+- **Storage**: Up to 100GB temporary
+- **Sessions**: Up to 12 hours continuous
+- **Google Drive Integration**: Save results
 
-- ✨ Automatic environment activation on terminal start
-- 💾 Persistent conda installation in `/workspace/miniconda3`
-- 🔄 Retry logic for reliable setup
-- 🎯 Based on proven working configuration
-- 📊 Port 8080 configured for QIIME2 visualizations
+## 📝 Installation
 
-## 🧪 Verification
+The setup notebook (`QIIME2_Setup.ipynb`) handles everything automatically:
 
-Once setup is complete, verify your installation:
+```python
+QIIME2_VERSION = "2025.10"
 
-```bash
-# Check QIIME2 version
-qiime --version
-
-# Get system information  
-qiime info
-
-# List available plugins
-qiime --help
+# Installs:
+# - Miniconda
+# - QIIME2 2025.10 environment
+# - All amplicon plugins
 ```
 
-## 📂 Sample Workflow
+**Installation time**: 15-20 minutes (one-time per session)
 
-```bash
-# Create a directory for your analysis
-mkdir -p ~/moving-pictures
-cd ~/moving-pictures
+## 💻 Usage Examples
 
-# Download sample data
-wget "https://data.qiime2.org/2025.7/tutorials/moving-pictures/sample-metadata.tsv"
-wget "https://data.qiime2.org/2025.7/tutorials/moving-pictures/emp-single-end-sequences/sequences.fastq.gz"
-wget "https://data.qiime2.org/2025.7/tutorials/moving-pictures/emp-single-end-sequences/barcodes.fastq.gz"
+### Basic Commands
 
-# Import data
-qiime tools import \
-  --type EMPSingleEndSequences \
-  --input-path . \
-  --output-path emp-single-end-sequences.qza
+```python
+# Check version
+!qiime --version  # Should show 2025.10.x
 
-# Demultiplex
-qiime demux emp-single \
+# List plugins
+!qiime info
+
+# Get help
+!qiime dada2 denoise-single --help
+```
+
+### Download Tutorial Data
+
+```python
+# Download Moving Pictures data (2025.10 version)
+!mkdir -p data && cd data
+!wget "https://data.qiime2.org/2025.10/tutorials/moving-pictures/sample-metadata.tsv"
+!wget "https://data.qiime2.org/2025.10/tutorials/moving-pictures/emp-single-end-sequences.qza"
+```
+
+### Run Analysis
+
+```python
+# Summarize sequences
+!qiime demux summarize \
+  --i-data emp-single-end-sequences.qza \
+  --o-visualization demux.qzv
+
+# Download results
+from google.colab import files
+files.download('demux.qzv')
+```
+
+View at: https://view.qiime2.org
+
+### Save to Google Drive
+
+```python
+# Mount Google Drive
+from google.colab import drive
+drive.mount('/content/drive')
+
+# Save results
+!cp *.qza /content/drive/MyDrive/qiime2-results/
+!cp *.qzv /content/drive/MyDrive/qiime2-results/
+```
+
+## 🔧 Python Utilities
+
+Use `colab_setup.py` for helper functions:
+
+```python
+import colab_setup
+
+# Check installation
+colab_setup.check_version()
+
+# List plugins
+colab_setup.list_plugins()
+
+# Download tutorial data
+colab_setup.download_tutorial_data('moving-pictures')
+```
+
+## 📊 Resource Specifications
+
+### Free Tier
+- **RAM**: Up to 12GB
+- **CPU**: 2 cores
+- **GPU**: T4 (optional)
+- **Storage**: ~100GB temporary
+- **Runtime**: 12 hours max
+
+### Colab Pro
+- **RAM**: Up to 25GB
+- **CPU**: 4+ cores
+- **GPU**: P100/V100
+- **Storage**: More persistent
+- **Runtime**: 24 hours max
+
+## ⚡ Performance Tips
+
+### 1. Use GPU for Supported Operations
+```python
+# Check GPU availability
+!nvidia-smi
+```
+
+### 2. Adjust Thread Count
+```python
+# Use 2 threads for free tier
+!qiime dada2 denoise-single \
+  --p-n-threads 2 \
+  # ... other parameters
+```
+
+### 3. Enable Progress Bars
+```python
+# Show progress during long operations
+import sys
+sys.stdout.flush()
+```
+
+### 4. Save Work Frequently
+```python
+# Checkpoint important results
+from google.colab import files
+files.download('table.qza')
+```
+
+## 🧪 Complete Tutorial Workflow
+
+```python
+# 1. Setup (run once per session)
+%run QIIME2_Setup.ipynb
+
+# 2. Create working directory
+!mkdir -p ~/qiime2-analysis && cd ~/qiime2-analysis
+
+# 3. Download data (2025.10)
+!wget "https://data.qiime2.org/2025.10/tutorials/moving-pictures/sample-metadata.tsv"
+!wget "https://data.qiime2.org/2025.10/tutorials/moving-pictures/emp-single-end-sequences.qza"
+
+# 4. Demultiplex
+!qiime demux emp-single \
   --i-seqs emp-single-end-sequences.qza \
   --m-barcodes-file sample-metadata.tsv \
   --m-barcodes-column barcode-sequence \
-  --o-per-sample-sequences demux.qza \
-  --o-error-correction-details demux-details.qza
+  --o-per-sample-sequences demux.qza
 
-# Generate summary visualization
-qiime demux summarize \
-  --i-data demux.qza \
-  --o-visualization demux.qzv
-
-# View the visualization (opens on port 8080)
-qiime tools view demux.qzv
-```
-
-## 📊 Viewing Visualizations
-
-QIIME2 visualizations (.qzv files) can be viewed in two ways:
-
-1. **In Gitpod**: Use `qiime tools view <file.qzv>` - opens on port 8080
-2. **Online**: Download the .qzv file and upload to [https://view.qiime2.org](https://view.qiime2.org)
-
-## 📚 Tutorials & Resources
-
-### Tutorials
-- [Moving Pictures Tutorial](https://docs.qiime2.org/2025.7/tutorials/moving-pictures/) - Best starting point
-- [Atacama Soils Tutorial](https://docs.qiime2.org/2025.7/tutorials/atacama-soils/) - Paired-end reads
-- [Parkinson's Mouse Tutorial](https://docs.qiime2.org/2025.7/tutorials/pd-mice/) - Longitudinal analysis
-- [Training Feature Classifiers](https://docs.qiime2.org/2025.7/tutorials/feature-classifier/) - Taxonomic classification
-
-### Documentation
-- [QIIME2 Documentation](https://docs.qiime2.org/)
-- [QIIME2 Forum](https://forum.qiime2.org/) - Community support
-- [QIIME2 Library](https://library.qiime2.org/) - Plugin directory
-
-## 🔧 Troubleshooting
-
-### Environment Not Activated
-If the environment isn't activated automatically:
-```bash
-source $HOME/.bashrc
-conda activate qiime2-amplicon-2025.7
-```
-
-### Workspace Persistence
-The conda installation is stored in `/workspace/miniconda3` which persists across workspace restarts, making subsequent launches much faster.
-
-### Resource Options
-Gitpod free tier offers two workspace sizes:
-
-| Workspace Size | CPU Cores | RAM | Storage |
-|---------------|-----------|-----|---------|
-| **Standard** | Up to 4 | 8GB | 30GB |
-| **Large** | Up to 8 | 16GB | 50GB |
-
-You can select the workspace size when starting your Gitpod workspace.
-
-**For optimal performance:**
-- **Small datasets (<1GB)**: Standard workspace is sufficient
-- **Medium datasets (1-5GB)**: Use Large workspace
-- **Large datasets (>5GB)**: Use Large workspace with resource management:
-  - Limit threads: `--p-n-threads 4` 
-  - Consider subsampling: `--p-sampling-depth`
-  - Process in batches if needed
-- **Very large datasets**: Consider Gitpod paid plans for dedicated resources
-
-### Common Issues
-
-**Command not found**: Ensure the environment is activated
-```bash
-conda activate qiime2-amplicon-2025.7
-```
-
-**Port 8080 already in use**: Kill existing process
-```bash
-lsof -ti:8080 | xargs kill -9
-```
-
-### Monitoring Resources
-
-Check your workspace resource usage:
-```bash
-# Check available memory
-free -h
-
-# Monitor CPU and memory in real-time
-htop
-
-# Check disk usage
-df -h
-
-# Monitor a specific QIIME2 process
-# Run your QIIME2 command with time and memory tracking
-/usr/bin/time -v qiime dada2 denoise-single ...
-```
-
-**Out of memory**: Reduce threads or sampling depth based on your workspace
-```bash
-# For Standard workspace (8GB RAM)
-qiime dada2 denoise-single \
+# 5. Denoise with DADA2
+!qiime dada2 denoise-single \
+  --i-demultiplexed-seqs demux.qza \
+  --p-trim-left 0 \
+  --p-trunc-len 120 \
   --p-n-threads 2 \
-  --i-demultiplexed-seqs demux.qza \
-  --p-trim-left 0 \
-  --p-trunc-len 120 \
   --o-representative-sequences rep-seqs.qza \
   --o-table table.qza \
   --o-denoising-stats stats.qza
 
-# For Large workspace (16GB RAM)
-qiime dada2 denoise-single \
-  --p-n-threads 4 \
-  --i-demultiplexed-seqs demux.qza \
-  --p-trim-left 0 \
-  --p-trunc-len 120 \
-  --o-representative-sequences rep-seqs.qza \
-  --o-table table.qza \
-  --o-denoising-stats stats.qza
+# 6. Generate summaries
+!qiime feature-table summarize \
+  --i-table table.qza \
+  --o-visualization table.qzv \
+  --m-sample-metadata-file sample-metadata.tsv
+
+# 7. Download results
+from google.colab import files
+files.download('table.qzv')
+files.download('rep-seqs.qza')
 ```
 
-## 🏗️ Configuration Details
+## 📚 Documentation
 
-- **Base Image**: `gitpod/workspace-full` - Ubuntu with development tools
-- **Conda Path**: `/workspace/miniconda3` - Persists across sessions
-- **Environment**: `qiime2-amplicon-2025.7` - Official QIIME2 distribution
-- **Installation Source**: Official QIIME2 conda channel
+### QIIME2 Resources
+- [QIIME2 2025.10 Docs](https://docs.qiime2.org/2025.10/)
+- [Moving Pictures Tutorial](https://docs.qiime2.org/2025.10/tutorials/moving-pictures/)
+- [QIIME2 Forum](https://forum.qiime2.org/)
+
+### Google Colab Resources
+- [Colab Documentation](https://colab.research.google.com/)
+- [Colab Pro Features](https://colab.research.google.com/signup)
+
+## 🐛 Troubleshooting
+
+### Installation Fails
+**Solution**: Restart runtime and try again
+```python
+# Runtime → Restart runtime
+```
+
+### Out of Memory
+**Solution**: Use smaller datasets or upgrade to Colab Pro
+```python
+# Reduce sampling depth
+--p-sampling-depth 1000
+```
+
+### Session Timeout
+**Solution**: Keep browser tab active, use Colab Pro for longer sessions
+
+### Command Not Found
+**Solution**: Ensure setup notebook ran successfully
+```python
+# Re-run setup cell
+!qiime --version
+```
+
+### Slow Performance
+**Solution**:
+- Use free tier during off-peak hours
+- Limit thread count: `--p-n-threads 1`
+- Consider Colab Pro for better resources
+
+## 🔄 Session Management
+
+```python
+# Check session info
+!uptime
+!free -h
+!df -h
+
+# Keep session alive (run periodically)
+import time
+print(f"Session active at {time.ctime()}")
+```
+
+## 📝 Changelog
+
+### Version 2025.10 (November 2024)
+- **Upgraded** from QIIME2 2025.7 to 2025.10
+- **Added** Google Colab support
+- **Added** setup notebook with progress indicators
+- **Added** Python utilities (colab_setup.py)
+- **Updated** all data URLs to 2025.10
+- **Improved** installation speed with optimizations
 
 ## 📄 License
 
-This Gitpod configuration is provided as-is for educational and research purposes. QIIME2 is licensed under the BSD 3-Clause License.
+This Google Colab configuration is provided as-is for educational and research purposes. QIIME2 is licensed under the BSD 3-Clause License.
 
 ---
 
-**Maintained by**: [@nycmyc](https://github.com/nycmyc)  
-**Repository**: [https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod](https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod)  
-**Based on**: [QIIME2 Official Distribution](https://library.qiime2.org/)
+**Maintained by**: [@nycmyc](https://github.com/nycmyc)
+**Repository**: [https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod](https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod)
+**QIIME2 Version**: 2025.10
+**Platform**: Google Colab
