@@ -1,0 +1,27 @@
+name: qiime2-amplicon-2025.10
+
+build:
+  - apt-get update && apt-get install -y wget bzip2 ca-certificates curl git vim htop
+  - bash lightning-ai/setup_qiime2.sh
+
+environment:
+  name: qiime2-amplicon-2025.10
+  variables:
+    QIIME2_VERSION: "2025.10"
+    CONDA_DIR: "/root/miniconda3"
+
+
+image: ubuntu:22.04
+
+compute:
+  gpu: false  # Set to true for GPU-accelerated operations
+  cpu: 4
+  memory: 16GB
+
+ports:
+  - 8080  # QIIME2 viewer port
+
+volumes:
+  - name: qiime2-data
+    mount: /data
+    size: 50GB

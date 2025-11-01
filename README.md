@@ -1,8 +1,6 @@
-# QIIME2 Amplicon 2025.7 on Gitpod 🧬
+# QIIME2 Amplicon 2025.10 on Lightning.ai ⚡
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod)
-
-A ready-to-use QIIME2 Amplicon Distribution (2025.7) command-line environment on Gitpod for microbiome analysis.
+Run QIIME2 Amplicon 2025.10 on Lightning.ai with optional GPU acceleration for computational bioinformatics.
 
 ## 🚀 Quick Start
 
