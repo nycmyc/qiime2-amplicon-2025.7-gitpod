@@ -1,0 +1,52 @@
+name: qiime2-amplicon-2025.10
+channels:
+  - qiime2/label/r2025.10
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  # QIIME2 core packages
+  - qiime2=2025.10.*
+  - q2cli=2025.10.*
+
+  # QIIME2 amplicon distribution plugins
+  - q2-alignment
+  - q2-composition
+  - q2-cutadapt
+  - q2-dada2
+  - q2-deblur
+  - q2-demux
+  - q2-diversity
+  - q2-diversity-lib
+  - q2-emperor
+  - q2-feature-classifier
+  - q2-feature-table
+  - q2-fragment-insertion
+  - q2-longitudinal
+  - q2-metadata
+  - q2-phylogeny
+  - q2-quality-control
+  - q2-quality-filter
+  - q2-sample-classifier
+  - q2-stats
+  - q2-taxa
+  - q2-types
+  - q2-vsearch
+
+  # Jupyter and notebook dependencies
+  - jupyter
+  - jupyterlab
+  - notebook
+  - ipykernel
+  - ipywidgets
+
+  # Additional useful packages
+  - pandas
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - numpy
+  - scipy
+
+  # Visualization
+  - plotly

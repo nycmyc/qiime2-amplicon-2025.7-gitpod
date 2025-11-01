@@ -1,222 +1,218 @@
-# QIIME2 Amplicon 2025.7 on Gitpod 🧬
+# QIIME2 Amplicon 2025.10 on Binder 📓
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nycmyc/qiime2-amplicon-2025.7-gitpod/binder-migration)
 
-A ready-to-use QIIME2 Amplicon Distribution (2025.7) command-line environment on Gitpod for microbiome analysis.
+Interactive Jupyter notebooks with QIIME2 Amplicon 2025.10 - run microbiome analyses in your browser without installation!
 
 ## 🚀 Quick Start
 
-1. Click the "Open in Gitpod" button above
-2. Choose your workspace size:
-   - **Standard** (4 cores, 8GB RAM) - Good for tutorials and small datasets
-   - **Large** (8 cores, 16GB RAM) - Better for real analyses and larger datasets
-3. Wait for the environment to set up (~10 minutes on first run, faster on subsequent runs)
-4. QIIME2 2025.7 will be automatically activated and ready to use!
+1. Click the "Launch Binder" badge above
+2. Wait for environment to build (20-30 minutes first time, faster after)
+3. Open `example-notebooks/QIIME2_Introduction.ipynb` to get started
+4. QIIME2 2025.10 is ready to use in notebooks!
 
 ## 📦 What's Included
 
-- **QIIME2 Amplicon Distribution 2025.7** (latest version) with all core plugins:
-  - q2-dada2: Denoising with DADA2
-  - q2-deblur: Denoising with Deblur  
-  - q2-cutadapt: Primer trimming
-  - q2-feature-classifier: Taxonomic classification
-  - q2-diversity: Diversity analyses
-  - q2-emperor: PCoA plots
-  - q2-phylogeny: Phylogenetic analyses
-  - q2-feature-table: Feature table operations
-  - q2-metadata: Metadata operations
-  - q2-taxa: Taxonomic analysis
-  - q2-vsearch: VSEARCH integration
-  - q2-alignment: Sequence alignment
-  - q2-composition: Compositional data analysis
-  - q2-fragment-insertion: Fragment insertion
-  - q2-longitudinal: Longitudinal analysis
-  - q2-quality-control: Quality control
-  - q2-quality-filter: Quality filtering
-  - q2-sample-classifier: Machine learning classification
-  - q2-stats: Statistical testing
-  - q2-types: QIIME 2 type system
-  - q2-vizard: Visualization tools
+- **QIIME2 Amplicon 2025.10** with all core plugins
+- **JupyterLab** environment with Python 3.9
+- **Example notebooks** demonstrating QIIME2 usage
+- **Sample data** from Moving Pictures tutorial
+- **Interactive visualizations** in notebooks
 
-- **Miniconda3** package manager
-- **Python** environment with scientific libraries
-- **Pre-configured VS Code** with Python extensions
+### QIIME2 Plugins
+All amplicon distribution plugins:
+- q2-dada2, q2-deblur: Sequence denoising
+- q2-diversity: Alpha/beta diversity analysis
+- q2-feature-classifier: Taxonomic classification
+- q2-emperor: 3D PCoA plots
+- q2-phylogeny: Phylogenetic tree building
+- Plus 15+ more plugins
 
-## ✅ Features
+## 📚 Example Notebooks
 
-- ✨ Automatic environment activation on terminal start
-- 💾 Persistent conda installation in `/workspace/miniconda3`
-- 🔄 Retry logic for reliable setup
-- 🎯 Based on proven working configuration
-- 📊 Port 8080 configured for QIIME2 visualizations
+- `QIIME2_Introduction.ipynb`: Version check and basic usage
+- More notebooks available in `example-notebooks/`
 
-## 🧪 Verification
+## 💻 Usage
 
-Once setup is complete, verify your installation:
+### In Jupyter Notebooks
 
-```bash
+```python
 # Check QIIME2 version
-qiime --version
+import qiime2
+print(qiime2.__version__)  # Should show 2025.10.x
 
-# Get system information  
-qiime info
+# Run QIIME2 commands with !
+!qiime --version
+!qiime info
 
-# List available plugins
-qiime --help
+# Load artifacts
+from qiime2 import Artifact
+table = Artifact.load('table.qza')
 ```
 
-## 📂 Sample Workflow
+### Shell Commands
 
 ```bash
-# Create a directory for your analysis
-mkdir -p ~/moving-pictures
-cd ~/moving-pictures
-
-# Download sample data
-wget "https://data.qiime2.org/2025.7/tutorials/moving-pictures/sample-metadata.tsv"
-wget "https://data.qiime2.org/2025.7/tutorials/moving-pictures/emp-single-end-sequences/sequences.fastq.gz"
-wget "https://data.qiime2.org/2025.7/tutorials/moving-pictures/emp-single-end-sequences/barcodes.fastq.gz"
-
-# Import data
-qiime tools import \
-  --type EMPSingleEndSequences \
-  --input-path . \
-  --output-path emp-single-end-sequences.qza
-
-# Demultiplex
-qiime demux emp-single \
-  --i-seqs emp-single-end-sequences.qza \
-  --m-barcodes-file sample-metadata.tsv \
-  --m-barcodes-column barcode-sequence \
-  --o-per-sample-sequences demux.qza \
-  --o-error-correction-details demux-details.qza
-
-# Generate summary visualization
-qiime demux summarize \
+# In notebook cells, use ! prefix
+!qiime demux summarize \
   --i-data demux.qza \
   --o-visualization demux.qzv
 
-# View the visualization (opens on port 8080)
-qiime tools view demux.qzv
+# View visualizations
+!qiime tools view demux.qzv
 ```
 
-## 📊 Viewing Visualizations
+## ⚠️ Resource Limitations
 
-QIIME2 visualizations (.qzv files) can be viewed in two ways:
+Binder provides limited resources:
 
-1. **In Gitpod**: Use `qiime tools view <file.qzv>` - opens on port 8080
-2. **Online**: Download the .qzv file and upload to [https://view.qiime2.org](https://view.qiime2.org)
+| Resource | Limit |
+|----------|-------|
+| RAM | ~2 GB |
+| CPU | 1-2 cores |
+| Storage | ~10 GB |
+| Idle timeout | 10 minutes |
+| Maximum session | 12 hours |
 
-## 📚 Tutorials & Resources
+**Recommended for**:
+- ✅ Tutorials and learning
+- ✅ Small datasets (<100MB)
+- ✅ Testing workflows
+- ✅ Educational purposes
 
-### Tutorials
-- [Moving Pictures Tutorial](https://docs.qiime2.org/2025.7/tutorials/moving-pictures/) - Best starting point
-- [Atacama Soils Tutorial](https://docs.qiime2.org/2025.7/tutorials/atacama-soils/) - Paired-end reads
-- [Parkinson's Mouse Tutorial](https://docs.qiime2.org/2025.7/tutorials/pd-mice/) - Longitudinal analysis
-- [Training Feature Classifiers](https://docs.qiime2.org/2025.7/tutorials/feature-classifier/) - Taxonomic classification
+**Not recommended for**:
+- ❌ Large datasets (>1GB)
+- ❌ Production analyses
+- ❌ Long computations (>2 hours)
 
-### Documentation
-- [QIIME2 Documentation](https://docs.qiime2.org/)
-- [QIIME2 Forum](https://forum.qiime2.org/) - Community support
-- [QIIME2 Library](https://library.qiime2.org/) - Plugin directory
+## 🧪 Tutorial Data
 
-## 🔧 Troubleshooting
+Sample data for QIIME2 2025.10 tutorials:
 
-### Environment Not Activated
-If the environment isn't activated automatically:
+```python
+# Moving Pictures tutorial
+!wget "https://data.qiime2.org/2025.10/tutorials/moving-pictures/sample-metadata.tsv"
+!wget "https://data.qiime2.org/2025.10/tutorials/moving-pictures/emp-single-end-sequences.qza"
+
+# Atacama Soils tutorial
+!wget "https://data.qiime2.org/2025.10/tutorials/atacama-soils/sample-metadata.tsv"
+```
+
+## 🔧 Optimization Tips
+
+### 1. Use Subsampling for Large Datasets
+```python
+!qiime feature-table filter-samples \
+  --i-table table.qza \
+  --p-min-frequency 100 \
+  --o-filtered-table filtered-table.qza
+```
+
+### 2. Limit Thread Usage
+```python
+!qiime dada2 denoise-single \
+  --p-n-threads 1 \  # Single thread for Binder
+  # ... other parameters
+```
+
+### 3. Download Results Before Session Expires
+```python
+from IPython.display import FileLink
+FileLink('table.qza')  # Creates download link
+```
+
+## 📊 Visualizations
+
+QIIME2 visualizations work in Binder:
+
+```python
+from qiime2 import Visualization
+
+# Load and display in notebook
+viz = Visualization.load('demux.qzv')
+viz  # Display inline
+```
+
+Or use the QIIME2 viewer:
 ```bash
-source $HOME/.bashrc
-conda activate qiime2-amplicon-2025.7
+!qiime tools view demux.qzv
+# Opens in new browser tab
 ```
 
-### Workspace Persistence
-The conda installation is stored in `/workspace/miniconda3` which persists across workspace restarts, making subsequent launches much faster.
+## 📝 Build Configuration
 
-### Resource Options
-Gitpod free tier offers two workspace sizes:
+Binder uses these configuration files:
 
-| Workspace Size | CPU Cores | RAM | Storage |
-|---------------|-----------|-----|---------|
-| **Standard** | Up to 4 | 8GB | 30GB |
-| **Large** | Up to 8 | 16GB | 50GB |
+- `binder/environment.yml`: Conda environment with QIIME2 2025.10
+- `binder/postBuild`: Post-build optimization script
+- `binder/runtime.txt`: Python 3.9 specification
 
-You can select the workspace size when starting your Gitpod workspace.
+**Build time expectations**:
+- First build: 20-30 minutes (full conda environment)
+- Cached builds: 5-10 minutes
+- Tip: Be patient! QIIME2 is a large environment
 
-**For optimal performance:**
-- **Small datasets (<1GB)**: Standard workspace is sufficient
-- **Medium datasets (1-5GB)**: Use Large workspace
-- **Large datasets (>5GB)**: Use Large workspace with resource management:
-  - Limit threads: `--p-n-threads 4` 
-  - Consider subsampling: `--p-sampling-depth`
-  - Process in batches if needed
-- **Very large datasets**: Consider Gitpod paid plans for dedicated resources
+## 📚 Documentation
 
-### Common Issues
+### QIIME2 Resources
+- [QIIME2 2025.10 Docs](https://docs.qiime2.org/2025.10/)
+- [Moving Pictures Tutorial](https://docs.qiime2.org/2025.10/tutorials/moving-pictures/)
+- [QIIME2 Forum](https://forum.qiime2.org/)
 
-**Command not found**: Ensure the environment is activated
-```bash
-conda activate qiime2-amplicon-2025.7
+### Binder Resources
+- [Binder Documentation](https://mybinder.readthedocs.io/)
+- [Jupyter Notebook Guide](https://jupyter-notebook.readthedocs.io/)
+
+## 🐛 Troubleshooting
+
+### Build Takes Too Long
+**Solution**: Binder builds can take 20-30 minutes first time. Be patient or try later.
+
+### Session Timeout
+**Solution**: Download results frequently. Sessions expire after 10 minutes idle.
+
+### Out of Memory
+**Solution**: Use smaller datasets or try these platforms with more resources:
+- Google Colab (more RAM)
+- Local installation
+- Cloud platforms
+
+### Visualization Not Displaying
+**Solution**: Try refreshing or use:
+```python
+from qiime2 import Visualization
+viz = Visualization.load('file.qzv')
+viz  # Display inline
 ```
 
-**Port 8080 already in use**: Kill existing process
-```bash
-lsof -ti:8080 | xargs kill -9
-```
+## 🔄 For Better Performance
 
-### Monitoring Resources
+For larger analyses, consider:
 
-Check your workspace resource usage:
-```bash
-# Check available memory
-free -h
+1. **Google Colab**: 12GB RAM, GPU access
+2. **GitHub Codespaces**: Configurable resources
+3. **Local Installation**: Full system resources
+4. **Cloud Platforms**: Oracle, AWS, GCP, Azure
 
-# Monitor CPU and memory in real-time
-htop
+See [VERSION_NOTES.md](VERSION_NOTES.md) for detailed 2025.10 information.
 
-# Check disk usage
-df -h
+## 📝 Changelog
 
-# Monitor a specific QIIME2 process
-# Run your QIIME2 command with time and memory tracking
-/usr/bin/time -v qiime dada2 denoise-single ...
-```
-
-**Out of memory**: Reduce threads or sampling depth based on your workspace
-```bash
-# For Standard workspace (8GB RAM)
-qiime dada2 denoise-single \
-  --p-n-threads 2 \
-  --i-demultiplexed-seqs demux.qza \
-  --p-trim-left 0 \
-  --p-trunc-len 120 \
-  --o-representative-sequences rep-seqs.qza \
-  --o-table table.qza \
-  --o-denoising-stats stats.qza
-
-# For Large workspace (16GB RAM)
-qiime dada2 denoise-single \
-  --p-n-threads 4 \
-  --i-demultiplexed-seqs demux.qza \
-  --p-trim-left 0 \
-  --p-trunc-len 120 \
-  --o-representative-sequences rep-seqs.qza \
-  --o-table table.qza \
-  --o-denoising-stats stats.qza
-```
-
-## 🏗️ Configuration Details
-
-- **Base Image**: `gitpod/workspace-full` - Ubuntu with development tools
-- **Conda Path**: `/workspace/miniconda3` - Persists across sessions
-- **Environment**: `qiime2-amplicon-2025.7` - Official QIIME2 distribution
-- **Installation Source**: Official QIIME2 conda channel
+### Version 2025.10 (November 2024)
+- **Upgraded** from QIIME2 2025.7 to 2025.10
+- **Added** Binder support with optimized build
+- **Updated** all tutorial data URLs to 2025.10
+- **Added** example notebooks
+- **Improved** build caching for faster launches
 
 ## 📄 License
 
-This Gitpod configuration is provided as-is for educational and research purposes. QIIME2 is licensed under the BSD 3-Clause License.
+This Binder configuration is provided as-is for educational and research purposes. QIIME2 is licensed under the BSD 3-Clause License.
 
 ---
 
-**Maintained by**: [@nycmyc](https://github.com/nycmyc)  
-**Repository**: [https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod](https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod)  
-**Based on**: [QIIME2 Official Distribution](https://library.qiime2.org/)
+**Maintained by**: [@nycmyc](https://github.com/nycmyc)
+**Repository**: [https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod](https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod)
+**QIIME2 Version**: 2025.10
+**Platform**: Binder / MyBinder.org

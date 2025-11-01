@@ -1,0 +1,40 @@
+#!/bin/bash
+set -e
+
+echo "========================================"
+echo "Binder Post-Build: QIIME2 2025.10"
+echo "========================================"
+
+# Enable Jupyter extensions
+jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build || true
+jupyter lab build --minimize=False || true
+
+# Configure JupyterLab
+mkdir -p ~/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/
+cat > ~/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/themes.jupyterlab-settings <<EOF
+{
+    "theme": "JupyterLab Light"
+}
+EOF
+
+# Create cache directories to speed up QIIME2
+mkdir -p ~/.qiime2
+mkdir -p ~/data
+mkdir -p ~/tutorials
+
+# Download sample data for tutorials
+echo "Downloading sample data..."
+mkdir -p ~/tutorials/moving-pictures
+cd ~/tutorials/moving-pictures
+wget -q "https://data.qiime2.org/2025.10/tutorials/moving-pictures/sample-metadata.tsv" || true
+
+# Verify QIIME2 installation
+echo ""
+echo "Verifying QIIME2 installation..."
+qiime --version
+
+echo ""
+echo "========================================"
+echo "Binder environment ready! 🚀"
+echo "QIIME2 2025.10 is installed and configured."
+echo "========================================"
