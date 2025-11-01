@@ -1,8 +1,29 @@
-# QIIME2 Amplicon 2025.7 on Gitpod 🧬
+# QIIME2 Amplicon 2025.10 on Gitpod (Legacy) 🧬
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod)
 
-A ready-to-use QIIME2 Amplicon Distribution (2025.7) command-line environment on Gitpod for microbiome analysis.
+> ⚠️ **DEPRECATION NOTICE**: Gitpod Classic is being sunset. This is the final update for this Gitpod configuration. Please migrate to one of the alternative platforms below.
+
+A ready-to-use QIIME2 Amplicon Distribution (2025.10) command-line environment on Gitpod for microbiome analysis.
+
+## 🔄 Migration Options
+
+**Recommended alternatives to Gitpod Classic:**
+
+| Platform | Branch | Best For |
+|----------|--------|----------|
+| [GitHub Codespaces](https://github.com/codespaces) | `github-codespaces-migration` | Direct Gitpod replacement |
+| [Oracle Cloud Free Tier](https://www.oracle.com/cloud/free/) | `oracle-cloud-migration` | Forever free, more resources |
+| [Google Colab](https://colab.research.google.com/) | `colab-migration` | Jupyter notebooks, 12GB RAM |
+| [Binder](https://mybinder.org/) | `binder-migration` | Interactive notebooks |
+| [Lightning.ai](https://lightning.ai) | `lightning-ai-migration` | GPU acceleration |
+
+```bash
+# Switch to migration branch
+git checkout github-codespaces-migration  # or other branch
+```
+
+See [CHANGELOG.md](CHANGELOG.md) for migration guides.
 
 ## 🚀 Quick Start
 
@@ -11,11 +32,11 @@ A ready-to-use QIIME2 Amplicon Distribution (2025.7) command-line environment on
    - **Standard** (4 cores, 8GB RAM) - Good for tutorials and small datasets
    - **Large** (8 cores, 16GB RAM) - Better for real analyses and larger datasets
 3. Wait for the environment to set up (~10 minutes on first run, faster on subsequent runs)
-4. QIIME2 2025.7 will be automatically activated and ready to use!
+4. QIIME2 2025.10 will be automatically activated and ready to use!
 
 ## 📦 What's Included
 
-- **QIIME2 Amplicon Distribution 2025.7** (latest version) with all core plugins:
+- **QIIME2 Amplicon Distribution 2025.10** (latest version) with all core plugins:
   - q2-dada2: Denoising with DADA2
   - q2-deblur: Denoising with Deblur  
   - q2-cutadapt: Primer trimming
@@ -73,9 +94,9 @@ mkdir -p ~/moving-pictures
 cd ~/moving-pictures
 
 # Download sample data
-wget "https://data.qiime2.org/2025.7/tutorials/moving-pictures/sample-metadata.tsv"
-wget "https://data.qiime2.org/2025.7/tutorials/moving-pictures/emp-single-end-sequences/sequences.fastq.gz"
-wget "https://data.qiime2.org/2025.7/tutorials/moving-pictures/emp-single-end-sequences/barcodes.fastq.gz"
+wget "https://data.qiime2.org/2025.10/tutorials/moving-pictures/sample-metadata.tsv"
+wget "https://data.qiime2.org/2025.10/tutorials/moving-pictures/emp-single-end-sequences/sequences.fastq.gz"
+wget "https://data.qiime2.org/2025.10/tutorials/moving-pictures/emp-single-end-sequences/barcodes.fastq.gz"
 
 # Import data
 qiime tools import \
@@ -110,10 +131,10 @@ QIIME2 visualizations (.qzv files) can be viewed in two ways:
 ## 📚 Tutorials & Resources
 
 ### Tutorials
-- [Moving Pictures Tutorial](https://docs.qiime2.org/2025.7/tutorials/moving-pictures/) - Best starting point
-- [Atacama Soils Tutorial](https://docs.qiime2.org/2025.7/tutorials/atacama-soils/) - Paired-end reads
-- [Parkinson's Mouse Tutorial](https://docs.qiime2.org/2025.7/tutorials/pd-mice/) - Longitudinal analysis
-- [Training Feature Classifiers](https://docs.qiime2.org/2025.7/tutorials/feature-classifier/) - Taxonomic classification
+- [Moving Pictures Tutorial](https://docs.qiime2.org/2025.10/tutorials/moving-pictures/) - Best starting point
+- [Atacama Soils Tutorial](https://docs.qiime2.org/2025.10/tutorials/atacama-soils/) - Paired-end reads
+- [Parkinson's Mouse Tutorial](https://docs.qiime2.org/2025.10/tutorials/pd-mice/) - Longitudinal analysis
+- [Training Feature Classifiers](https://docs.qiime2.org/2025.10/tutorials/feature-classifier/) - Taxonomic classification
 
 ### Documentation
 - [QIIME2 Documentation](https://docs.qiime2.org/)
@@ -126,7 +147,7 @@ QIIME2 visualizations (.qzv files) can be viewed in two ways:
 If the environment isn't activated automatically:
 ```bash
 source $HOME/.bashrc
-conda activate qiime2-amplicon-2025.7
+conda activate qiime2-amplicon-2025.10
 ```
 
 ### Workspace Persistence
@@ -155,7 +176,7 @@ You can select the workspace size when starting your Gitpod workspace.
 
 **Command not found**: Ensure the environment is activated
 ```bash
-conda activate qiime2-amplicon-2025.7
+conda activate qiime2-amplicon-2025.10
 ```
 
 **Port 8080 already in use**: Kill existing process
@@ -208,7 +229,7 @@ qiime dada2 denoise-single \
 
 - **Base Image**: `gitpod/workspace-full` - Ubuntu with development tools
 - **Conda Path**: `/workspace/miniconda3` - Persists across sessions
-- **Environment**: `qiime2-amplicon-2025.7` - Official QIIME2 distribution
+- **Environment**: `qiime2-amplicon-2025.10` - Official QIIME2 distribution
 - **Installation Source**: Official QIIME2 conda channel
 
 ## 📄 License
@@ -218,5 +239,5 @@ This Gitpod configuration is provided as-is for educational and research purpose
 ---
 
 **Maintained by**: [@nycmyc](https://github.com/nycmyc)  
-**Repository**: [https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod](https://github.com/nycmyc/qiime2-amplicon-2025.7-gitpod)  
+**Repository**: [https://github.com/nycmyc/qiime2-amplicon-2025.10-gitpod](https://github.com/nycmyc/qiime2-amplicon-2025.10-gitpod)  
 **Based on**: [QIIME2 Official Distribution](https://library.qiime2.org/)

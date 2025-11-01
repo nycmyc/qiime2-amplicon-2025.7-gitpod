@@ -2,7 +2,7 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - name: Setup QIIME2 Amplicon 2025.7
+  - name: Setup QIIME2 Amplicon 2025.10
     init: |
       CONDA_DIR="/workspace/miniconda3"
       if [ ! -d "$CONDA_DIR" ]; then
@@ -15,13 +15,13 @@ tasks:
       echo '. $CONDA_DIR/etc/profile.d/conda.sh' >> $HOME/.bashrc
       source $HOME/.bashrc
       conda init bash
-      if [ ! -d "$CONDA_DIR/envs/qiime2-amplicon-2025.7" ]; then
+      if [ ! -d "$CONDA_DIR/envs/qiime2-amplicon-2025.10" ]; then
         conda update -n base -c defaults conda
         max_retries=3
         retry_count=0
         while [ $retry_count -lt $max_retries ]; do
-          if conda env create -n qiime2-amplicon-2025.7 --file https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2025.7/amplicon/released/qiime2-amplicon-ubuntu-latest-conda.yml; then
-            echo "QIIME 2 2025.7 environment created successfully"
+          if conda env create -n qiime2-amplicon-2025.10 --file https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2025.10/amplicon/released/qiime2-amplicon-ubuntu-latest-conda.yml; then
+            echo "QIIME 2 2025.10 environment created successfully"
             break
           else
             echo "Failed to create QIIME 2 environment. Retrying in 10 seconds..."
@@ -35,20 +35,20 @@ tasks:
         fi
       fi
       source $HOME/.bashrc
-      conda activate qiime2-amplicon-2025.7
+      conda activate qiime2-amplicon-2025.10
       # Refresh QIIME 2 cache
       qiime dev refresh-cache
       # Auto-activate conda environment
       echo "" >> $HOME/.bashrc
       echo "# Auto-activate QIIME 2 environment" >> $HOME/.bashrc
-      echo "conda activate qiime2-amplicon-2025.7" >> $HOME/.bashrc
+      echo "conda activate qiime2-amplicon-2025.10" >> $HOME/.bashrc
     command: |
       export CONDA_DIR="/workspace/miniconda3"
       source $HOME/.bashrc
-      conda activate qiime2-amplicon-2025.7
+      conda activate qiime2-amplicon-2025.10
       clear
       echo "============================================"
-      echo "   QIIME 2 2025.7 Environment Ready! 🧬"
+      echo "   QIIME 2 2025.10 Environment Ready! 🧬"
       echo "============================================"
       echo ""
       qiime --version
@@ -61,8 +61,13 @@ tasks:
       echo "  qiime tools view          # View QIIME 2 visualizations"
       echo ""
       echo "📖 Tutorials:"
-      echo "  Moving Pictures: https://docs.qiime2.org/2025.7/tutorials/moving-pictures/"
-      echo "  Atacama Soils:   https://docs.qiime2.org/2025.7/tutorials/atacama-soils/"
+      echo "  Moving Pictures: https://docs.qiime2.org/2025.10/tutorials/moving-pictures/"
+      echo "  Atacama Soils:   https://docs.qiime2.org/2025.10/tutorials/atacama-soils/"
+      echo ""
+      echo "⚠️  NOTE: Gitpod Classic is being sunset. Consider migrating to:"
+      echo "   • GitHub Codespaces"
+      echo "   • Oracle Cloud Free Tier"
+      echo "   • Google Colab"
       echo ""
       echo "✅ Ready for analysis!"
 
